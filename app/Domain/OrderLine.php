@@ -7,7 +7,7 @@ final readonly class OrderLine
 {
     public function __construct(public int $quantity, public float $unitPrice)
     {
-        if ($quantity <= 0) {
+        if ($quantity < 1) {
             throw new \InvalidArgumentException('Order line quantity must be positive.');
         }
     }
