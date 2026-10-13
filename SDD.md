@@ -1,9 +1,22 @@
 # SDD — Ventas y descuentos
 
-## Propósito y stack
-Piloto PHP 8.3 con Laravel 12, Composer 2 y PHPUnit 11.5. Las entidades viven en `app/Domain` y las políticas/coordinadores en `app/Services`; los tests se separan en `tests/Unit` y `tests/Feature`.
+## Propósito
+Modelar el cálculo de precios de pedidos, descuentos de clientes y el impuesto aplicable.
 
-## Decisiones y casos
-El subtotal pertenece al pedido, los descuentos se calculan como porcentaje y el impuesto se aplica mediante una política separada. `SAL-1` es Local (`DiscountCalculator::applyPercentage()`), `SAL-2` es Functional (`DiscountPolicy::discountFor()`; evidencia externa `ORACLE-SAL-2`) y `SAL-3` es Structural (`OrderPricingService::calculateTotal()`).
+## Stack
+PHP 8.3, Laravel 12, Composer 2 y PHPUnit 11.5.
 
-Los casos son parches independientes sobre un baseline común. Los tests preexistentes son parciales y no cubren targets experimentales. Fuera de alcance: frontend, red, CORS, Redis, colas y bases de datos externas.
+## Estructura
+Las entidades están en `app/Domain`; las políticas y servicios de cálculo, en `app/Services`. Las pruebas Unit y Feature viven bajo `tests`.
+
+## Reglas de negocio
+Un cliente Premium recibe 15 % cuando no hay una promoción activa. Una promoción activa aporta su propio porcentaje; cuando coinciden, se utiliza el porcentaje mayor. Las líneas de pedido requieren una cantidad positiva. El impuesto se calcula sobre el importe ya descontado.
+
+## Decisiones de diseño
+El pedido calcula su subtotal a partir de sus líneas. Las políticas de descuento e impuesto se mantienen separadas del coordinador de precios.
+
+## Ejecución
+Ejecutar `composer install` y después `php vendor/bin/phpunit` o `php artisan test`.
+
+## Fuera de alcance
+Interfaz web, servicios remotos, colas, Redis y bases de datos externas.

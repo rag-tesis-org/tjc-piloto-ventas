@@ -1,3 +1,3 @@
-# Piloto de ventas y descuentos
+# Ventas y descuentos
 
-Proyecto Laravel 12, determinista y sin servicios externos. Instalar con `composer install`; ejecutar `php vendor/bin/phpunit` o `php artisan test`.
+Servicio de dominio para calcular precios, descuentos e impuestos en pedidos. Requiere PHP 8.3 y Laravel 12. Instalar con `composer install`; ejecutar `php vendor/bin/phpunit` o `php artisan test`.
