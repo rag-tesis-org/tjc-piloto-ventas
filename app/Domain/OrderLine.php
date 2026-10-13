@@ -14,6 +14,8 @@ final readonly class OrderLine
 
     public function total(): float
     {
-        return round($this->quantity * $this->unitPrice, 2);
+        $lineTotal = $this->quantity * $this->unitPrice;
+
+        return round($lineTotal, 2);
     }
 }
